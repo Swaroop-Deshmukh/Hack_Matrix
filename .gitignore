@@ -46,3 +46,6 @@ dist-ssr/
 
 # Antigravity / Scratch
 *.log
+
+*.db
+*.sqlite3
