@@ -12,6 +12,7 @@ from .api.optimizer import (
     destinations_router,
     disposal_router,
 )
+from .api.impact import router as impact_router
 
 
 @asynccontextmanager
@@ -51,6 +52,7 @@ app.include_router(optimizer_router, prefix="/api")
 app.include_router(facilities_router, prefix="/api")
 app.include_router(destinations_router, prefix="/api")
 app.include_router(disposal_router, prefix="/api")
+app.include_router(impact_router, prefix="/api")
 
 
 @app.get("/health", tags=["Health"])
