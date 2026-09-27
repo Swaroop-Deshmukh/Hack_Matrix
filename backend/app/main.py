@@ -6,6 +6,12 @@ from .seed.seed_data import seed_database
 from .api.materials import router as materials_router
 from .api.pathways import router as pathways_router
 from .api.feasibility import router as feasibility_router
+from .api.optimizer import (
+    router as optimizer_router,
+    facilities_router,
+    destinations_router,
+    disposal_router,
+)
 
 
 @asynccontextmanager
@@ -21,9 +27,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="RE:FLOW-X — Material Intelligence & Feasibility Engine",
-    description="Deterministic Feasibility Engine, Material Passports, and Evidence Rigor Screening (Member 1 Module)",
-    version="1.0.0",
+    title="RE:FLOW-X — Circular Resource Optimization & Decision Engine",
+    description="Material Intelligence, Deterministic Feasibility, Pre-treatment Matrix, and OR-Tools CP-SAT Allocation Engine (Members 1 & 2 Modules)",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
@@ -41,14 +47,21 @@ app.add_middleware(
 app.include_router(materials_router, prefix="/api")
 app.include_router(pathways_router, prefix="/api")
 app.include_router(feasibility_router, prefix="/api")
+app.include_router(optimizer_router, prefix="/api")
+app.include_router(facilities_router, prefix="/api")
+app.include_router(destinations_router, prefix="/api")
+app.include_router(disposal_router, prefix="/api")
 
 
 @app.get("/health", tags=["Health"])
 def health_check():
     return {
         "status": "healthy",
-        "module": "Member 1: Material Intelligence & Feasibility Engine",
-        "version": "1.0.0",
+        "modules": [
+            "Member 1: Material Intelligence & Feasibility Engine",
+            "Member 2: Processing, Transport & Allocation Optimizer",
+        ],
+        "version": "2.0.0",
     }
 
 
@@ -56,9 +69,13 @@ def health_check():
 def root():
     return {
         "platform": "RE:FLOW-X",
-        "module": "Member 1: Material Intelligence & Feasibility Engine",
+        "modules": "Member 1 (Material Feasibility) + Member 2 (Allocation Optimizer)",
         "docs": "/docs",
         "api_materials": "/api/materials",
         "api_pathways": "/api/pathways",
         "api_feasibility": "/api/feasibility/check",
+        "api_optimize": "/api/optimize",
+        "api_facilities": "/api/facilities",
+        "api_destinations": "/api/destinations",
+        "api_disposal": "/api/disposal-sites",
     }
