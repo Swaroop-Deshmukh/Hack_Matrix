@@ -29,9 +29,7 @@ class Settings(BaseSettings):
     # Default Solver Timeout (seconds)
     SOLVER_TIMEOUT_SECONDS: float = 15.0
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = {"env_file": ".env", "case_sensitive": True, "extra": "ignore"}
 
 
 settings = Settings()
