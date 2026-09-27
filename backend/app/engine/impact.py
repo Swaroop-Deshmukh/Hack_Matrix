@@ -290,7 +290,7 @@ class ImpactCalculator:
             ),
             economic_ledger=eco_ledger,
             environmental_ledger=env_ledger,
-            methodologies=methodologies,
+            methodology=methodologies,
             factor_sources=list(factor_sources),
             missing_factors=list(missing_factors),
             assumptions=assumptions,
