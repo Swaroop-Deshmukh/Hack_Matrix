@@ -7,6 +7,9 @@ from ..models.pathway import Pathway
 from ..models.requirement import PathwayRequirement
 from ..models.standard import StandardMetadata
 from ..models.evidence import EvidenceType
+from ..models.facility import Facility
+from ..models.destination import Destination
+from ..models.disposal import DisposalSite
 
 
 def seed_database(db: Session = None):
@@ -437,7 +440,152 @@ def seed_database(db: Session = None):
             db.add_all(mw001_props)
             db.commit()
 
-        print("[Seed] RE:FLOW-X Member 1 Seed Database initialization complete.")
+        # 5. MEMBER 2: PROCESSING FACILITIES
+        facilities_data = [
+            Facility(
+                id="FAC-G01",
+                name="Grinding & Rotary Drying Unit G-01",
+                process_types="DRYING,GRINDING",
+                capacity_tonnes=2500.0,
+                processing_cost_per_ton=12.50,
+                processing_yield=0.94,
+                energy_kwh_per_ton=38.0,
+                emissions_factor_kg_co2e_per_ton=16.5,
+                location_name="Bhandara Road Industrial Zone, Nagpur, MH",
+                latitude=21.1892,
+                longitude=79.8321,
+                is_active=True,
+                description="High-throughput ball mill and thermal rotary drying circuit for reclaimed pond ash.",
+            ),
+            Facility(
+                id="FAC-W01",
+                name="Aqueous Dechlorination & Washing Unit W-02",
+                process_types="WASHING,DEWATERING",
+                capacity_tonnes=1800.0,
+                processing_cost_per_ton=18.00,
+                processing_yield=0.92,
+                energy_kwh_per_ton=28.0,
+                emissions_factor_kg_co2e_per_ton=12.0,
+                location_name="Butibori MIDC, Nagpur, MH",
+                latitude=20.9167,
+                longitude=79.0000,
+                is_active=True,
+                description="Counter-current hydraulic washing for chloride and soluble salt removal.",
+            ),
+            Facility(
+                id="FAC-ES01",
+                name="Electrostatic Carbon Separator Unit ES-01",
+                process_types="ELECTROSTATIC_SEPARATION",
+                capacity_tonnes=1500.0,
+                processing_cost_per_ton=22.00,
+                processing_yield=0.88,
+                energy_kwh_per_ton=45.0,
+                emissions_factor_kg_co2e_per_ton=19.5,
+                location_name="Chandrapur Industrial Cluster, MH",
+                latitude=19.9615,
+                longitude=79.2961,
+                is_active=True,
+                description="Triboelectric electrostatic separator to extract unburnt carbon from high-LOI ash.",
+            ),
+        ]
+        for f in facilities_data:
+            if not db.query(Facility).filter(Facility.id == f.id).first():
+                db.add(f)
+        db.commit()
+
+        # 6. MEMBER 2: REUSE DESTINATIONS / OFFTAKERS
+        destinations_data = [
+            Destination(
+                id="DEST-CEM-01",
+                name="Ultratech Cement Plant C-01",
+                pathway_id="CEMENTITIOUS",
+                max_demand_tonnes=2500.0,
+                min_demand_tonnes=0.0,
+                purchase_price_per_ton=32.00,
+                location_name="Bhilai Suburb Cement Hub, CG",
+                latitude=21.1938,
+                longitude=81.3856,
+                is_active=True,
+                description="Major cement plant accepting Class F fly ash as supplementary cementitious material.",
+            ),
+            Destination(
+                id="DEST-BLK-01",
+                name="EcoBricks Infrastructure Precast Yard",
+                pathway_id="BLOCKS_BRICKS",
+                max_demand_tonnes=2000.0,
+                min_demand_tonnes=0.0,
+                purchase_price_per_ton=22.00,
+                location_name="Wardha Industrial Estate, MH",
+                latitude=20.7453,
+                longitude=78.6022,
+                is_active=True,
+                description="Automated precast masonry block and paver manufacturing facility.",
+            ),
+            Destination(
+                id="DEST-ROAD-01",
+                name="NH-44 Highway Expansion Sector 4",
+                pathway_id="ROAD_INFRASTRUCTURE",
+                max_demand_tonnes=3500.0,
+                min_demand_tonnes=0.0,
+                purchase_price_per_ton=14.00,
+                location_name="Nagpur South Highway Corridor, MH",
+                latitude=20.8000,
+                longitude=79.4000,
+                is_active=True,
+                description="National highway embankment and subgrade construction corridor.",
+            ),
+            Destination(
+                id="DEST-MINE-01",
+                name="Underground Paste Backfill Shaft #4",
+                pathway_id="MINE_FILL",
+                max_demand_tonnes=1500.0,
+                min_demand_tonnes=0.0,
+                purchase_price_per_ton=10.00,
+                location_name="Western Coalfields Void Basin, MH",
+                latitude=20.5000,
+                longitude=79.1000,
+                is_active=True,
+                description="Hydraulic void backfill and paste stabilization shaft.",
+            ),
+        ]
+        for d in destinations_data:
+            if not db.query(Destination).filter(Destination.id == d.id).first():
+                db.add(d)
+        db.commit()
+
+        # 7. MEMBER 2: BASELINE DISPOSAL SITES
+        disposal_sites_data = [
+            DisposalSite(
+                id="DISP-ASH-01",
+                name="Regulated Industrial Ash Pond Lagoon #2",
+                disposal_type="ASH_POND",
+                gate_fee_per_ton=65.0,
+                capacity_tonnes=100000.0,
+                location_name="Koradi Ash Lagoon Basin Outskirts, MH",
+                latitude=21.2500,
+                longitude=78.9500,
+                is_active=True,
+                description="Permitted slurry ash storage reservoir with baseline environmental surveillance.",
+            ),
+            DisposalSite(
+                id="DISP-LANDFILL-01",
+                name="Central Sanitary Industrial Landfill",
+                disposal_type="LANDFILL",
+                gate_fee_per_ton=75.0,
+                capacity_tonnes=250000.0,
+                location_name="Nagpur Regional Engineered Landfill, MH",
+                latitude=21.1000,
+                longitude=79.0500,
+                is_active=True,
+                description="Engineered municipal/industrial non-hazardous solid waste landfill with leachate collection.",
+            ),
+        ]
+        for s in disposal_sites_data:
+            if not db.query(DisposalSite).filter(DisposalSite.id == s.id).first():
+                db.add(s)
+        db.commit()
+
+        print("[Seed] RE:FLOW-X Members 1 & 2 Seed Database initialization complete.")
     finally:
         if close_db:
             db.close()
