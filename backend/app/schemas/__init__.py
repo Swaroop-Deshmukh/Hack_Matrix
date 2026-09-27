@@ -77,6 +77,19 @@ from .optimizer import (
     ScenarioComparisonItem,
     ScenarioComparisonResponse,
 )
+from .impact import (
+    AccountingMode,
+    EconomicCategory,
+    EnvironmentalCategory,
+    EconomicLedgerEntry,
+    EnvironmentalLedgerEntry,
+    BaselineImpact,
+    OptimizedImpact,
+    ImpactComparison,
+    ImpactMethodology,
+    ImpactResponse,
+    ImpactCalculateRequest,
+)
 
 __all__ = [
     "MaterialBase",
@@ -142,4 +155,15 @@ __all__ = [
     "OptimizationResponse",
     "ScenarioComparisonItem",
     "ScenarioComparisonResponse",
+    "AccountingMode",
+    "EconomicCategory",
+    "EnvironmentalCategory",
+    "EconomicLedgerEntry",
+    "EnvironmentalLedgerEntry",
+    "BaselineImpact",
+    "OptimizedImpact",
+    "ImpactComparison",
+    "ImpactMethodology",
+    "ImpactResponse",
+    "ImpactCalculateRequest",
 ]
