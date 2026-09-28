@@ -141,7 +141,7 @@ export const DecisionCenterPage: React.FC = () => {
               <div className="space-y-2">
                 <span className="text-[10px] uppercase text-teal-400 font-bold block">TECHNICAL VERIFICATION</span>
                 <div className="space-y-1">
-                  {selectedActionForWhy.whyFeasible.map((w, i) => (
+                  {selectedActionForWhy.whyFeasible?.map((w, i) => (
                     <div key={i} className="p-2 bg-[#090b10] rounded border border-slate-800 text-slate-300 flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{w}</span>
@@ -154,7 +154,7 @@ export const DecisionCenterPage: React.FC = () => {
               <div className="space-y-2">
                 <span className="text-[10px] uppercase text-teal-400 font-bold block">CAPACITY VERIFICATION</span>
                 <div className="space-y-1">
-                  {selectedActionForWhy.whyCapacity.map((w, i) => (
+                  {selectedActionForWhy.whyCapacity?.map((w, i) => (
                     <div key={i} className="p-2 bg-[#090b10] rounded border border-slate-800 text-slate-300 flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{w}</span>
@@ -167,7 +167,7 @@ export const DecisionCenterPage: React.FC = () => {
               <div className="space-y-2">
                 <span className="text-[10px] uppercase text-teal-400 font-bold block">PORTFOLIO MODEL RATIONALE</span>
                 <div className="space-y-1">
-                  {selectedActionForWhy.whyPortfolio.map((w, i) => (
+                  {selectedActionForWhy.whyPortfolio?.map((w, i) => (
                     <div key={i} className="p-2 bg-[#090b10] rounded border border-slate-800 text-slate-300 flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{w}</span>

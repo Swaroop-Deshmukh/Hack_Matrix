@@ -126,3 +126,114 @@ export interface MetricSummary {
   comparativeEmissionsDeltaTonnes: number;
   lastOptimizedTime: string;
 }
+
+export interface OptimizationRun {
+  id: string;
+  timestamp: string;
+  status: 'SOLVED' | 'FEASIBLE' | 'INFEASIBLE';
+  divertedTonnes: number;
+  divertedPercentage: number;
+  netCostLakhs: number;
+  emissionsDeltaTonnes: number;
+  solverTimeMs: number;
+  objective?: string;
+}
+
+export interface Allocation {
+  id: string;
+  materialId: string;
+  materialName: string;
+  sourceId?: string;
+  sourceName?: string;
+  destinationId?: string;
+  destinationName?: string;
+  destination?: string;
+  pathwayId?: string;
+  pathwayName?: string;
+  pathway?: string;
+  processingFacility?: string;
+  quantityTonnes?: number;
+  quantity?: number;
+  netCostLakhs?: number;
+  transportCostLakhs?: number;
+  processingCostLakhs?: number;
+  residualTonnes?: number;
+  technicalStatus?: string;
+  decisionReason?: string;
+  unitCost?: number;
+  totalCost?: number;
+  emissionsSaved?: number;
+  status: string;
+}
+
+export interface ImpactRecord {
+  id?: string;
+  optimizationRunId?: string;
+  systemBoundary?: string;
+  emissionFactorsVersion?: string;
+  waterfallData?: Array<{ name: string; type: 'COST' | 'SAVING' | 'NET'; value: number }>;
+  baselineDisposalCostLakhs: number;
+  optimizedNetCostLakhs: number;
+  costSavingsLakhs: number;
+  virginMaterialOffsetTonnes: number;
+  co2EmissionsAvoidedTonnes: number;
+  landfillVolumeSavedM3: number;
+  waterSavedKL: number;
+  communityJobsSupported: number;
+  circularityScore: number;
+}
+
+export interface DecisionAction {
+  id: string;
+  title: string;
+  type: string;
+  impact: string;
+  urgency: 'HIGH' | 'MEDIUM' | 'LOW';
+  status: 'PENDING' | 'APPROVED' | 'REJECTED';
+  rationale: string;
+  destinationFacility?: string;
+  tonnes?: number;
+  whyFeasible?: string[];
+  whyCapacity?: string[];
+  whyPortfolio?: string[];
+}
+
+export interface AlternativeDecision {
+  id: string;
+  title: string;
+  tradeoff: string;
+  netCostDelta: number;
+  emissionsDelta: number;
+  route?: string;
+  rejectReason?: string;
+}
+
+export interface UnlockRequirement {
+  id: string;
+  materialId: string;
+  materialName: string;
+  missingProperty: string;
+  actionRequired: string;
+  potentialDivertedTonnes: number;
+  route?: string;
+  reasonText?: string;
+  unlockActionText?: string;
+}
+
+export interface ScenarioResult {
+  id: string;
+  name?: string;
+  scenarioName?: string;
+  baselineDiversionPercentage?: number;
+  scenarioDiversionPercentage?: number;
+  baselineCostLakhs?: number;
+  scenarioCostLakhs?: number;
+  baselineEmissionsDeltaTonnes?: number;
+  scenarioEmissionsDeltaTonnes?: number;
+  newBottlenecks?: string[];
+  allocationsShift?: Array<{ destination: string; changeTonnes: number }>;
+  divertedTonnes?: number;
+  costLakhs?: number;
+  resilienceScore?: number;
+}
+

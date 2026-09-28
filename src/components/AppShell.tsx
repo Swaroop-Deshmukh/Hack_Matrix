@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { CheckCircle2, RefreshCw } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const location = useLocation();
+
+  const isLandingPage = location.pathname === '/';
 
   const handleRunOptimization = () => {
     setIsOptimizing(true);
@@ -21,8 +25,12 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
     }, 1800);
   };
 
+  if (isLandingPage) {
+    return <div className="min-h-screen bg-green-50/60">{children}</div>;
+  }
+
   return (
-    <div className="min-h-screen bg-[#0b0d11] text-slate-200 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans">
       {/* Left Sidebar */}
       <Sidebar 
         collapsed={sidebarCollapsed} 
@@ -54,7 +62,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
             <div>
               <h3 className="text-sm font-semibold text-slate-100 font-mono">Running LP Allocation Engine</h3>
               <p className="text-xs text-slate-400 mt-1">
-                Evaluating 14 material streams, 8 chemical constraints, and 12 transport nodes...
+                Evaluating material streams, chemical constraints, and transport nodes...
               </p>
             </div>
             <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800">

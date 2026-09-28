@@ -347,3 +347,172 @@ export const mockNetworkRoutes: NetworkRoute[] = [
     status: 'FEASIBLE'
   }
 ];
+
+export const mockOptimizationRun = {
+  id: 'RUN-2026-0928',
+  timestamp: '2026-09-28 14:42',
+  status: 'SOLVED' as const,
+  divertedTonnes: 9820,
+  divertedPercentage: 78.9,
+  netCostLakhs: 8.42,
+  emissionsDeltaTonnes: -1284,
+  solverTimeMs: 342
+};
+
+export const mockAllocations = [
+  { 
+    id: 'al-1', 
+    materialId: 'FA-001', 
+    materialName: 'Fly Ash', 
+    sourceId: 'n1',
+    sourceName: 'Nagpur Thermal Power Plant',
+    destinationId: 'n3',
+    destinationName: 'Ultratech Cement Plant C-01',
+    destination: 'Ultratech Cement Plant C-01', 
+    pathwayId: 'pw-1',
+    pathwayName: 'Cementitious Application',
+    pathway: 'Cementitious Application', 
+    processingFacility: 'Direct / Dry Handling',
+    quantityTonnes: 3000,
+    quantity: 3000, 
+    netCostLakhs: 3.6,
+    transportCostLakhs: 2.8,
+    processingCostLakhs: 0.8,
+    residualTonnes: 0,
+    technicalStatus: 'Feasible',
+    decisionReason: 'Optimal transport corridor cost and low moisture composition',
+    unitCost: 120, 
+    totalCost: 3.6, 
+    emissionsSaved: 420, 
+    status: 'OPTIMAL' 
+  },
+  { 
+    id: 'al-2', 
+    materialId: 'FA-001', 
+    materialName: 'Fly Ash', 
+    sourceId: 'n1',
+    sourceName: 'Nagpur Thermal Power Plant',
+    destinationId: 'n4',
+    destinationName: 'EcoBricks Ltd (Wardha)',
+    destination: 'EcoBricks Ltd (Wardha)', 
+    pathwayId: 'pw-2',
+    pathwayName: 'Fly Ash Concrete Blocks',
+    pathway: 'Fly Ash Concrete Blocks', 
+    processingFacility: 'Direct / Dry Handling',
+    quantityTonnes: 2000,
+    quantity: 2000, 
+    netCostLakhs: 1.8,
+    transportCostLakhs: 1.5,
+    processingCostLakhs: 0.3,
+    residualTonnes: 0,
+    technicalStatus: 'Feasible',
+    decisionReason: 'Proximity to Wardha block manufacturing unit',
+    unitCost: 90, 
+    totalCost: 1.8, 
+    emissionsSaved: 280, 
+    status: 'OPTIMAL' 
+  }
+];
+
+export const mockImpactRecord = {
+  id: 'REC-2026-IMP-01',
+  optimizationRunId: 'RUN-2026-0928',
+  systemBoundary: 'Cradle-to-Grave Gate',
+  emissionFactorsVersion: 'IPCC 2026 AR6 Standard',
+  waterfallData: [
+    { name: 'Baseline Disposal Cost', type: 'COST' as const, value: 24.5 },
+    { name: 'Haulage & Fleet Transport', type: 'COST' as const, value: -3.42 },
+    { name: 'Rotary Screening & Processing', type: 'COST' as const, value: -1.12 },
+    { name: 'Virgin Clinker Offset Savings', type: 'SAVING' as const, value: 11.54 },
+    { name: 'Optimized Net Cost', type: 'NET' as const, value: 8.42 }
+  ],
+  baselineDisposalCostLakhs: 24.5,
+  optimizedNetCostLakhs: 8.42,
+  costSavingsLakhs: 16.08,
+  virginMaterialOffsetTonnes: 9820,
+  co2EmissionsAvoidedTonnes: 1284,
+  landfillVolumeSavedM3: 7420,
+  waterSavedKL: 18500,
+  communityJobsSupported: 34,
+  circularityScore: 84.5
+};
+
+export const mockDecisionActions = [
+  { 
+    id: 'dec-1', 
+    title: 'Dispatch 3,000t Fly Ash to Ultratech Cement', 
+    type: 'DISPATCH', 
+    impact: '+3,000t Diverted', 
+    urgency: 'HIGH' as const, 
+    status: 'PENDING' as const, 
+    rationale: 'High demand at destination; optimal transport corridor balance.',
+    sourceMaterial: 'Fly Ash (FA-001)',
+    destinationFacility: 'Ultratech Cement Plant C-01',
+    tonnes: 3000,
+    whyFeasible: ['SiO2 composition matches cement standard (>35%)', 'Moisture level within 3.4% limit'],
+    whyCapacity: ['Cement Plant C-01 silo capacity available (10,000 t max)'],
+    whyPortfolio: ['Lowest transport cost per tonne on Nagpur corridor']
+  },
+  { 
+    id: 'dec-2', 
+    title: 'Authorize Processing Unit G-01 Rotary Screen', 
+    type: 'PROCESSING', 
+    impact: '+1,200t Feasible', 
+    urgency: 'MEDIUM' as const, 
+    status: 'PENDING' as const, 
+    rationale: 'Clears particle size bottleneck for Mine Waste road sub-base usage.',
+    sourceMaterial: 'Mine Waste (MW-003)',
+    destinationFacility: 'Grinding & Drying Unit G-01',
+    tonnes: 1200,
+    whyFeasible: ['Pre-treatment clears oversized fraction >2mm'],
+    whyCapacity: ['Unit G-01 has 4% remaining daily capacity'],
+    whyPortfolio: ['Unlocks high-volume road sub-base pathway']
+  }
+];
+
+export const mockAlternativeDecisions = [
+  { 
+    id: 'alt-1', 
+    title: 'Reroute 1,000t Fly Ash to Road Sub-base', 
+    tradeoff: 'Lower transport cost, slightly higher residual waste', 
+    netCostDelta: -0.45, 
+    emissionsDelta: +12,
+    route: 'Nagpur -> Sector 4 Highway',
+    rejectReason: 'Road sub-base compaction requirement fails without processing'
+  },
+  { 
+    id: 'alt-2', 
+    title: 'Hold Mine Waste for TCLP Assay', 
+    tradeoff: 'Delays dispatch by 3 days, ensures 100% evidence compliance', 
+    netCostDelta: +0.20, 
+    emissionsDelta: 0,
+    route: 'Balaghat Open Pit -> Lab Assay',
+    rejectReason: 'Pond holding capacity limit reached'
+  }
+];
+
+export const mockUnlockRequirements = [
+  { 
+    id: 'unl-1', 
+    materialId: 'RP-005', 
+    materialName: 'Red Mud / Bauxite Residue', 
+    missingProperty: 'Alkalinity Neutralization', 
+    actionRequired: 'Submit Dewatering & pH Treatment Plan', 
+    potentialDivertedTonnes: 2200,
+    route: 'Renukoot Refinery -> EcoBricks',
+    reasonText: 'pH level 11.8 exceeds alkaline limit of 9.0',
+    unlockActionText: 'Run carbonation neutralizer unit'
+  },
+  { 
+    id: 'unl-2', 
+    materialId: 'MW-003', 
+    materialName: 'Mine Waste / Overburden', 
+    missingProperty: 'ICP-MS Heavy Metals', 
+    actionRequired: 'Upload Accredited Lab Test Assay', 
+    potentialDivertedTonnes: 1550,
+    route: 'Balaghat Pit -> Mine Backfill',
+    reasonText: 'Heavy metals trace assay certificate missing',
+    unlockActionText: 'Request Geolab MP-104 express assay'
+  }
+];
+

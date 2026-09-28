@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Layers, 
@@ -7,13 +7,12 @@ import {
   Network, 
   Zap, 
   BarChart3, 
-  ShieldAlert, 
-  CheckCircle2, 
-  BookOpen, 
   Settings,
   ChevronLeft,
   ChevronRight,
-  Hexagon
+  Leaf,
+  FileText,
+  Route
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -22,52 +21,54 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
+  const location = useLocation();
+
+  if (location.pathname === '/') {
+    return null;
+  }
+
   const mainNav = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Materials', path: '/materials', icon: Layers },
-    { name: 'Feasibility', path: '/feasibility', icon: GitBranch },
-    { name: 'Network', path: '/network', icon: Network },
+    { name: 'Materials Registry', path: '/materials', icon: Layers },
+    { name: 'Feasibility Analysis', path: '/feasibility', icon: GitBranch },
+    { name: 'Candidate Routes', path: '/routes', icon: Route },
+    { name: 'Optimization', path: '/optimize', icon: Zap },
+    { name: 'Impact Analysis', path: '/impact', icon: BarChart3 },
+    { name: 'Maps & Network', path: '/network', icon: Network },
   ];
 
-  const phase2Nav = [
-    { name: 'Optimize', path: '/optimize', icon: Zap },
-    { name: 'Impact', path: '/impact', icon: BarChart3 },
-    { name: 'Resilience', path: '/resilience', icon: ShieldAlert },
-    { name: 'Decide', path: '/decide', icon: CheckCircle2 },
-  ];
-
-  const bottomNav = [
-    { name: 'Methodology', path: '/methodology', icon: BookOpen },
+  const secondaryNav = [
+    { name: 'Reports', path: '/reports', icon: FileText },
     { name: 'Settings', path: '/settings', icon: Settings },
   ];
 
   return (
     <aside 
-      className={`fixed top-0 left-0 bottom-0 z-40 bg-[#0c0e14] border-r border-slate-800/80 transition-all duration-300 flex flex-col justify-between ${
+      className={`fixed top-0 left-0 bottom-0 z-40 bg-white border-r border-slate-200 transition-all duration-300 flex flex-col justify-between shadow-xs ${
         collapsed ? 'w-16' : 'w-64'
       }`}
     >
       <div>
         {/* Brand Header */}
-        <div className="h-14 px-4 flex items-center justify-between border-b border-slate-800/80">
+        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-100 bg-white">
           <div className="flex items-center gap-2.5 overflow-hidden">
-            <div className="w-7 h-7 rounded bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center text-slate-950 font-bold shrink-0 shadow-sm shadow-teal-500/20">
-              <Hexagon className="w-4 h-4 fill-slate-950 stroke-none" />
+            <div className="w-8 h-8 rounded-lg bg-green-600 flex items-center justify-center text-white font-bold shrink-0 shadow-sm">
+              <Leaf className="w-5 h-5 text-white" />
             </div>
             {!collapsed && (
               <div className="flex flex-col truncate">
-                <span className="font-bold text-sm tracking-wider text-slate-100 font-mono">
-                  RE:FLOW-X
+                <span className="font-bold text-sm tracking-tight text-green-800 font-sans">
+                  WasteManagement
                 </span>
-                <span className="text-[10px] text-slate-400 tracking-tight font-medium -mt-0.5">
-                  Circular Decision Engine
+                <span className="text-[10px] text-green-600 font-semibold tracking-tight -mt-0.5">
+                  RE:FLOW-X Platform
                 </span>
               </div>
             )}
           </div>
           <button 
             onClick={onToggle}
-            className="text-slate-400 hover:text-slate-200 p-1 rounded hover:bg-slate-800/60 transition-colors"
+            className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
             title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -75,9 +76,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
         </div>
 
         {/* Primary Navigation */}
-        <div className="p-2 space-y-1">
+        <div className="p-3 space-y-1">
           {!collapsed && (
-            <div className="px-3 py-1.5 text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-mono">
+            <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
               Core Platform
             </div>
           )}
@@ -86,10 +87,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded text-xs font-medium transition-all ${
+                `flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-500'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                    ? 'bg-green-100/90 text-green-900 font-bold border-l-4 border-green-600 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 } ${collapsed ? 'justify-center px-0' : ''}`
               }
               title={collapsed ? item.name : undefined}
@@ -100,53 +101,22 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           ))}
         </div>
 
-        {/* Phase 2 Modules */}
-        <div className="p-2 space-y-1 border-t border-slate-800/60 mt-2">
+        {/* System & Reports */}
+        <div className="p-3 space-y-1 border-t border-slate-100 mt-2">
           {!collapsed && (
-            <div className="px-3 py-1.5 text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-mono flex items-center justify-between">
-              <span>Optimization</span>
-              <span className="text-[9px] bg-slate-800/90 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700/50 font-sans">Phase 2</span>
+            <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              Analysis & System
             </div>
           )}
-          {phase2Nav.map((item) => (
+          {secondaryNav.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded text-xs font-medium transition-all ${
+                `flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-500'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                } ${collapsed ? 'justify-center px-0' : ''}`
-              }
-              title={collapsed ? `${item.name} (Phase 2)` : undefined}
-            >
-              <item.icon className="w-4 h-4 shrink-0 text-slate-500" />
-              {!collapsed && (
-                <span className="flex-1 flex items-center justify-between">
-                  {item.name}
-                </span>
-              )}
-            </NavLink>
-          ))}
-        </div>
-
-        {/* System Methodology */}
-        <div className="p-2 space-y-1 border-t border-slate-800/60 mt-2">
-          {!collapsed && (
-            <div className="px-3 py-1.5 text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-mono">
-              System
-            </div>
-          )}
-          {bottomNav.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded text-xs font-medium transition-all ${
-                  isActive
-                    ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-500'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                    ? 'bg-green-100/90 text-green-900 font-bold border-l-4 border-green-600 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 } ${collapsed ? 'justify-center px-0' : ''}`
               }
               title={collapsed ? item.name : undefined}
@@ -159,19 +129,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
       </div>
 
       {/* Footer Status */}
-      <div className="p-3 border-t border-slate-800/80 bg-[#090b0e]/80">
-        <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2'}`}>
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      <div className="p-3.5 border-t border-slate-100 bg-slate-50/80">
+        <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5'}`}>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-600"></span>
           </span>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="text-xs font-semibold text-slate-300 font-mono tracking-tight flex items-center gap-1">
-                System Online
+              <span className="text-xs font-bold text-slate-800 tracking-tight">
+                Engine Operational
               </span>
-              <span className="text-[10px] text-slate-500 font-mono">
-                v1.0.4-industrial
+              <span className="text-[10px] text-slate-500">
+                v2.4 — Industrial Platform
               </span>
             </div>
           )}

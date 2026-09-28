@@ -22,28 +22,28 @@ export const NetworkPage: React.FC = () => {
   return (
     <div className="space-y-4 max-w-[1600px] mx-auto h-[calc(100vh-6.5rem)] flex flex-col">
       {/* Top Header & Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-3 shrink-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-3 shrink-0">
         <div>
-          <h1 className="text-xl font-bold font-mono text-slate-100 tracking-tight flex items-center gap-2">
-            <NetworkIcon className="w-5 h-5 text-teal-400" /> Industrial Spatial GIS Command Center
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2.5">
+            <NetworkIcon className="w-6 h-6 text-green-700" /> Maps & Network Command Center
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-600 mt-0.5">
             Regional logistics nodes, processing facilities, and optimized transport corridors.
           </p>
         </div>
 
         {/* Layer Toggles & Filters */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-[#090b10] p-1 rounded border border-slate-800 text-xs font-mono">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500 ml-1" />
+          <div className="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 text-xs shadow-xs">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 ml-1.5" />
             {['ALL', 'SOURCE', 'PROCESSING', 'DESTINATION', 'DISPOSAL'].map((type) => (
               <button
                 key={type}
                 onClick={() => setLayerFilter(type)}
-                className={`px-2 py-0.5 rounded transition-all ${
+                className={`px-3 py-1 rounded-lg transition-all font-bold cursor-pointer ${
                   layerFilter === type
-                    ? 'bg-teal-500/20 text-teal-400 border border-teal-500/40 font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-green-100 text-green-900 border border-green-300 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 {type}
@@ -54,53 +54,53 @@ export const NetworkPage: React.FC = () => {
       </div>
 
       {/* Main Command Center Layout (Map + Detail Panel) */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 overflow-hidden min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-5 overflow-hidden min-h-0">
         {/* Left GIS Spatial Canvas / Map Area (8 Cols) */}
-        <div className="lg:col-span-8 industrial-card relative overflow-hidden flex flex-col justify-between p-4 bg-[#090b10] border-slate-800">
+        <div className="lg:col-span-8 industrial-card relative overflow-hidden flex flex-col justify-between p-4 bg-slate-50 border-slate-200">
           {/* Legend Overlay at Top Left */}
-          <div className="absolute top-4 left-4 z-20 bg-[#0c0e14]/90 backdrop-blur-md p-3 rounded border border-slate-800 text-xs font-mono space-y-2 shadow-xl">
-            <span className="text-[10px] text-slate-500 uppercase font-bold block border-b border-slate-800 pb-1">
+          <div className="absolute top-6 left-6 z-20 bg-white/95 backdrop-blur-md p-4 rounded-xl border border-slate-200 text-xs space-y-2 shadow-lg">
+            <span className="text-[10px] text-slate-400 font-bold uppercase block border-b border-slate-100 pb-1">
               GIS Layer Legend
             </span>
-            <div className="space-y-1.5 text-[11px]">
+            <div className="space-y-1.5 text-xs font-semibold">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
-                <span className="text-slate-300">● Waste Source</span>
+                <span className="w-3 h-3 rounded-full bg-green-600 inline-block" />
+                <span className="text-slate-800">● Waste Source</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rotate-45 bg-amber-400 inline-block" />
-                <span className="text-slate-300">◆ Processing Facility</span>
+                <span className="w-3 h-3 rotate-45 bg-amber-500 inline-block" />
+                <span className="text-slate-800">◆ Processing Unit</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-blue-400 inline-block" />
-                <span className="text-slate-300">■ Destination Sink</span>
+                <span className="w-3 h-3 bg-blue-600 inline-block" />
+                <span className="text-slate-800">■ Destination Sink</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-500 inline-block" />
-                <span className="text-slate-300">× Regulated Disposal</span>
+                <span className="w-3 h-3 rounded-full bg-slate-400 inline-block" />
+                <span className="text-slate-800">× Regulated Disposal</span>
               </div>
             </div>
           </div>
 
           {/* Interactive Vector GIS Simulation Map Canvas */}
-          <div className="relative w-full h-full min-h-[400px] bg-[#07090e] rounded border border-slate-900 flex items-center justify-center overflow-hidden">
-            {/* Dark GIS Topo Grid Graphics */}
-            <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
+          <div className="relative w-full h-full min-h-[420px] bg-emerald-50/40 rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden">
+            {/* Grid Graphics */}
+            <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-60" />
 
-            {/* Simulated Vector Route Lines */}
+            {/* Vector Route Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
               <defs>
-                <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
+                <linearGradient id="routeGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#16a34a" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#2563eb" stopOpacity="0.9" />
                 </linearGradient>
               </defs>
               {/* Active Route Line 1 */}
-              <line x1="22%" y1="45%" x2="52%" y2="35%" stroke="url(#routeGrad)" strokeWidth="3" className="animate-flow-dash" />
-              <line x1="52%" y1="35%" x2="80%" y2="40%" stroke="url(#routeGrad)" strokeWidth="3" className="animate-flow-dash" />
+              <line x1="22%" y1="45%" x2="52%" y2="35%" stroke="url(#routeGradLight)" strokeWidth="4" className="animate-flow-dash" />
+              <line x1="52%" y1="35%" x2="80%" y2="40%" stroke="url(#routeGradLight)" strokeWidth="4" className="animate-flow-dash" />
 
               {/* Alternative Feasible Route Line 2 */}
-              <line x1="22%" y1="45%" x2="40%" y2="75%" stroke="#3b82f6" strokeWidth="2" strokeDasharray="4 4" opacity="0.6" />
+              <line x1="22%" y1="45%" x2="40%" y2="75%" stroke="#2563eb" strokeWidth="2.5" strokeDasharray="5 5" opacity="0.7" />
             </svg>
 
             {/* Interactive GIS Node Markers */}
@@ -121,17 +121,17 @@ export const NetworkPage: React.FC = () => {
                 >
                   <div className="relative">
                     {/* Pulsing ring */}
-                    <div className="absolute -inset-2 rounded-full bg-teal-500/20 animate-ping" />
+                    <div className="absolute -inset-2 rounded-full bg-green-400/30 animate-ping" />
 
                     {/* Marker Icon */}
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs shadow-lg transition-transform group-hover:scale-125 border ${
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-xs shadow-md transition-transform group-hover:scale-125 border ${
                       node.type === 'SOURCE' 
-                        ? 'bg-emerald-950 border-emerald-400 text-emerald-300' 
+                        ? 'bg-green-600 border-green-700 text-white' 
                         : node.type === 'PROCESSING'
-                        ? 'bg-amber-950 border-amber-400 text-amber-300 rotate-45'
+                        ? 'bg-amber-500 border-amber-600 text-white rotate-45'
                         : node.type === 'DESTINATION'
-                        ? 'bg-blue-950 border-blue-400 text-blue-300'
-                        : 'bg-slate-900 border-slate-600 text-slate-400'
+                        ? 'bg-blue-600 border-blue-700 text-white'
+                        : 'bg-slate-500 border-slate-600 text-white'
                     }`}>
                       <span className={node.type === 'PROCESSING' ? '-rotate-45' : ''}>
                         {node.type === 'SOURCE' && 'S'}
@@ -142,7 +142,7 @@ export const NetworkPage: React.FC = () => {
                     </div>
 
                     {/* Node Hover Label */}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-2 py-0.5 bg-[#090b10] border border-slate-800 text-[10px] font-mono text-slate-200 rounded whitespace-nowrap shadow-md opacity-90 group-hover:opacity-100">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2.5 py-1 bg-white border border-slate-200 text-xs font-bold text-slate-800 rounded-lg whitespace-nowrap shadow-md opacity-95 group-hover:opacity-100">
                       {node.name}
                     </div>
                   </div>
@@ -152,108 +152,108 @@ export const NetworkPage: React.FC = () => {
           </div>
 
           {/* Bottom GIS Status Footer */}
-          <div className="mt-3 flex items-center justify-between text-xs font-mono text-slate-400 pt-2 border-t border-slate-800">
-            <span>Coordinates: 21.1458° N, 79.0882° E (Central India Corridor)</span>
-            <span className="text-teal-400">Map Scale: 1:250,000 (Vector Engine)</span>
+          <div className="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600 pt-2 border-t border-slate-200">
+            <span>Coordinates: 21.1458° N, 79.0882° E (Central India Circular Network)</span>
+            <span className="text-green-800 font-bold">Vector Scale: 1:250,000</span>
           </div>
         </div>
 
         {/* Right GIS Route & Allocation Panel (4 Cols) */}
-        <div className="lg:col-span-4 industrial-card p-5 flex flex-col justify-between bg-[#0e1118] space-y-4">
+        <div className="lg:col-span-4 industrial-card p-6 flex flex-col justify-between bg-white space-y-4">
           <div className="space-y-4 overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <div>
-                <span className="text-[10px] font-mono uppercase text-slate-500 block">Corridor Telemetry</span>
-                <h3 className="text-sm font-bold font-mono text-teal-400">Selected Route & Allocation</h3>
+                <span className="text-[10px] font-bold uppercase text-slate-400 block">Corridor Telemetry</span>
+                <h3 className="text-base font-bold text-slate-900">Selected Route & Allocation</h3>
               </div>
-              <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">
+              <span className="text-xs font-bold bg-green-100 text-green-900 px-3 py-1 rounded-full border border-green-200">
                 OPTIMAL
               </span>
             </div>
 
             {selectedRoute && (
-              <div className="space-y-4 text-xs font-mono">
+              <div className="space-y-4 text-xs">
                 {/* Route Path Flow Card */}
-                <div className="p-3 bg-[#131722] rounded border border-slate-800 space-y-2">
-                  <div className="flex items-center gap-2 text-slate-200 font-bold">
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                  <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
                     <span>{selectedRoute.sourceName}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-green-600 shrink-0" />
                     <span>{selectedRoute.destinationName}</span>
                   </div>
-                  <div className="text-[11px] text-slate-400 flex items-center justify-between pt-1">
-                    <span>Material: <strong className="text-teal-300">{selectedRoute.materialName}</strong></span>
-                    <span>Allocated: <strong className="text-slate-100">{selectedRoute.quantity} t</strong></span>
+                  <div className="text-xs text-slate-600 flex items-center justify-between pt-2 border-t border-slate-200">
+                    <span>Material: <strong className="text-green-800">{selectedRoute.materialName}</strong></span>
+                    <span>Allocated: <strong className="text-slate-900">{selectedRoute.quantity} t</strong></span>
                   </div>
                 </div>
 
                 {/* Spatial Metrics */}
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-[#090b10] rounded border border-slate-800 space-y-1">
-                    <span className="text-[10px] text-slate-500 uppercase block">Transport Distance</span>
-                    <span className="text-sm font-bold text-slate-200">{selectedRoute.distanceKm} km</span>
+                  <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Transport Distance</span>
+                    <span className="text-sm font-bold text-slate-900">{selectedRoute.distanceKm} km</span>
                   </div>
 
-                  <div className="p-3 bg-[#090b10] rounded border border-slate-800 space-y-1">
-                    <span className="text-[10px] text-slate-500 uppercase block">Transport Cost</span>
-                    <span className="text-sm font-bold text-slate-200">₹{selectedRoute.transportCost} L</span>
+                  <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Transport Freight</span>
+                    <span className="text-sm font-bold text-slate-900">₹{selectedRoute.transportCost} L</span>
                   </div>
 
-                  <div className="p-3 bg-[#090b10] rounded border border-slate-800 space-y-1">
-                    <span className="text-[10px] text-slate-500 uppercase block">Processing Cost</span>
-                    <span className="text-sm font-bold text-slate-200">₹{selectedRoute.processingCost} L</span>
+                  <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Pre-Processing Cost</span>
+                    <span className="text-sm font-bold text-slate-900">₹{selectedRoute.processingCost} L</span>
                   </div>
 
-                  <div className="p-3 bg-[#090b10] rounded border border-slate-800 space-y-1">
-                    <span className="text-[10px] text-slate-500 uppercase block">Mass Yield</span>
-                    <span className="text-sm font-bold text-emerald-400">{selectedRoute.yieldPercentage}%</span>
+                  <div className="p-3.5 bg-green-50 rounded-xl border border-green-200 space-y-1">
+                    <span className="text-[10px] text-green-800 font-bold uppercase block">Mass Yield</span>
+                    <span className="text-sm font-extrabold text-green-800">{selectedRoute.yieldPercentage}%</span>
                   </div>
                 </div>
 
                 {/* Technical System Checks */}
                 <div className="space-y-2 pt-1">
-                  <span className="text-[10px] uppercase text-slate-500 font-semibold block">Feasibility & Capacity Verification</span>
+                  <span className="text-xs uppercase text-slate-400 font-bold block">Feasibility & Capacity Verification</span>
 
-                  <div className="p-2.5 bg-slate-900 rounded border border-slate-800 flex items-center justify-between text-[11px]">
-                    <span className="flex items-center gap-1.5 text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Technically Feasible
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-xs flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-2 text-slate-700 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" /> Technically Feasible
                     </span>
-                    <span className="text-emerald-400 font-bold">PASSED</span>
+                    <span className="text-green-800 font-bold">PASSED</span>
                   </div>
 
-                  <div className="p-2.5 bg-slate-900 rounded border border-slate-800 flex items-center justify-between text-[11px]">
-                    <span className="flex items-center gap-1.5 text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Capacity Available
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-xs flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-2 text-slate-700 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" /> Capacity Available
                     </span>
-                    <span className="text-emerald-400 font-bold">PASSED</span>
+                    <span className="text-green-800 font-bold">PASSED</span>
                   </div>
 
-                  <div className="p-2.5 bg-slate-900 rounded border border-slate-800 flex items-center justify-between text-[11px]">
-                    <span className="flex items-center gap-1.5 text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Sink Demand Available
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-xs flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-2 text-slate-700 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" /> Sink Demand Available
                     </span>
-                    <span className="text-emerald-400 font-bold">PASSED</span>
+                    <span className="text-green-800 font-bold">PASSED</span>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Selected Node Drawer / Info */}
+            {/* Selected Node Info Drawer */}
             {selectedNode && (
-              <div className="p-3 bg-teal-950/20 border border-teal-500/40 rounded text-xs font-mono space-y-1">
-                <div className="flex items-center justify-between font-bold text-teal-300">
+              <div className="p-4 bg-green-50/80 border border-green-300 rounded-xl text-xs space-y-1">
+                <div className="flex items-center justify-between font-bold text-green-900">
                   <span>{selectedNode.name}</span>
-                  <button onClick={() => setSelectedNode(null)} className="text-slate-400 hover:text-slate-200">
-                    <X className="w-3.5 h-3.5" />
+                  <button onClick={() => setSelectedNode(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
-                <p className="text-slate-400 text-[11px]">{selectedNode.address}</p>
-                <p className="text-slate-300 text-[11px]">Capacity: <strong>{selectedNode.capacity}</strong></p>
+                <p className="text-slate-600 text-xs">{selectedNode.address}</p>
+                <p className="text-slate-800 text-xs pt-1">Capacity: <strong>{selectedNode.capacity}</strong></p>
               </div>
             )}
           </div>
 
-          <div className="pt-3 border-t border-slate-800">
-            <button className="industrial-button-primary w-full justify-center">
+          <div className="pt-3 border-t border-slate-200">
+            <button className="industrial-button-green w-full justify-center">
               View Complete Route Allocation
             </button>
           </div>

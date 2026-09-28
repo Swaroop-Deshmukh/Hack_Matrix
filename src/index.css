@@ -2,53 +2,57 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
   
   body {
-    @apply bg-[#0b0d11] text-slate-200 antialiased font-sans selection:bg-teal-500/30 selection:text-teal-200 min-h-screen overflow-x-hidden;
+    @apply bg-[#f8fafc] text-slate-800 antialiased font-sans selection:bg-green-500/20 selection:text-green-900 min-h-screen overflow-x-hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* Custom Scrollbar for Industrial UI */
+  /* Custom Light Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0d1017;
+    background: #f1f5f9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #cbd5e1;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #94a3b8;
   }
 }
 
-/* Custom Glass Panel & Utility Classes */
+/* Enterprise Light Cards & Utility Classes */
 .industrial-card {
-  @apply bg-[#11141c]/90 border border-slate-800/80 rounded-md backdrop-blur-sm shadow-sm hover:border-slate-700/80 transition-all duration-200;
+  @apply bg-white border border-slate-200/90 rounded-xl shadow-sm hover:border-slate-300 hover:shadow-md transition-all duration-200 text-slate-800;
 }
 
 .industrial-card-glow {
-  @apply bg-[#11141c] border border-slate-800/90 rounded-md shadow-lg shadow-teal-950/10 hover:border-teal-500/40 transition-all duration-200;
+  @apply bg-white border border-green-500/30 rounded-xl shadow-md hover:shadow-lg hover:border-green-600/50 transition-all duration-200 text-slate-800;
 }
 
 .industrial-input {
-  @apply bg-[#090b10] border border-slate-800 text-slate-200 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-teal-500/80 focus:ring-1 focus:ring-teal-500/30 transition-all placeholder:text-slate-600;
+  @apply bg-white border border-slate-300 text-slate-800 font-medium rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-500/20 transition-all placeholder:text-slate-400 shadow-xs;
 }
 
 .industrial-button-primary {
-  @apply bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-slate-950 font-medium text-xs px-3 py-1.5 rounded transition-all shadow-sm shadow-teal-950/40 inline-flex items-center justify-center gap-1.5 font-semibold tracking-wide uppercase;
+  @apply bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition-all shadow-md shadow-orange-500/20 inline-flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer;
 }
 
 .industrial-button-secondary {
-  @apply bg-[#181d28] hover:bg-[#202736] text-slate-300 border border-slate-700/60 text-xs px-3 py-1.5 rounded transition-all inline-flex items-center justify-center gap-1.5 font-medium;
+  @apply bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs px-3.5 py-2 rounded-lg transition-all inline-flex items-center justify-center gap-1.5 font-semibold shadow-xs cursor-pointer;
 }
 
-/* Animated Flow Gradient for Sankey / Flow Connections */
+.industrial-button-green {
+  @apply bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-bold text-xs px-4 py-2 rounded-lg transition-all shadow-md shadow-green-600/20 inline-flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer;
+}
+
+/* Animated Flow Gradient */
 @keyframes flowDash {
   to {
     stroke-dashoffset: -20;
@@ -58,4 +62,11 @@
 .animate-flow-dash {
   stroke-dasharray: 6 4;
   animation: flowDash 1.2s linear infinite;
+}
+
+/* Hero Background for Wastemanagement.in style */
+.wm-hero-bg {
+  background-image: linear-gradient(rgba(22, 101, 52, 0.85), rgba(22, 101, 52, 0.85)), url('https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg');
+  background-size: cover;
+  background-position: center;
 }
